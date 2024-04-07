@@ -6,7 +6,7 @@ image: {
     src: "/images/blog/update300.png",
     alt: "Bahnfinder Version 4"
 }
-publishDate: "01.03.2024"
+publishDate: "04.03.2024"
 category: "update"
 #author: "emilian"
 tags: [v4]
