@@ -4,6 +4,7 @@ import { Picture } from "@astrojs/image/components";
 import Layout from "@layouts/Layout.astro";
 import Container from "@components/container.astro";
 import Sectionhead from "@components/sectionhead.astro";
+import { getFormattedDate } from '../../utils/all.js';
 
 // Filter blog entries with 'draft: false' & date before current date
 const publishedBlogEntries = await getCollection("blog", ({ data }) => {
@@ -61,7 +62,7 @@ publishedBlogEntries.sort(function (a, b) {
                       <time
                         class="text-gray-400"
                         datetime={blogPostEntry.data.publishDate.toISOString()}>
-                        {blogPostEntry.data.publishDate.toDateString()}
+                        {getFormattedDate(blogPostEntry.data.publishDate)}
                       </time>
                     </div>
                   </div>
