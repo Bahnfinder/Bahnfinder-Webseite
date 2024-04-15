@@ -7,6 +7,9 @@ import sitemap from "@astrojs/sitemap";
 // https://astro.build/config
 export default defineConfig({
   site: "https://bahnfinder.app",
+  server: {
+    host: '0.0.0.0' // Erlaubt Zugriff von jedem Gerät im Netzwerk
+  },
   integrations: [
     tailwind(),
     image({

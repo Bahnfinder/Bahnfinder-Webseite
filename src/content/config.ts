@@ -18,6 +18,7 @@ const blogCollection = defineCollection({
   }),
 });
 
+
 const teamCollection = defineCollection({
   schema: z.object({
     draft: z.boolean(),
@@ -27,9 +28,9 @@ const teamCollection = defineCollection({
       src: z.string(),
       alt: z.string(),
     }),
-    mail_link: z.string(),
-    mail: z.string(),
-    publishDate: z.string().transform(str => new Date(str)),
+    mail_link: z.string().optional(),  // Making email link optional
+    mail: z.string().optional(),       // Making email optional
+    publishDate: z.string().transform(str => new Date(str)), // Ensure valid date transformation
   }),
 });
 
@@ -37,5 +38,6 @@ const teamCollection = defineCollection({
 //    This key should match your collection directory name in "src/content"
 export const collections = {
   'blog': blogCollection,
-  'team': teamCollection,
+  'mitwirkende': teamCollection,
+  'entwickler': teamCollection,
 };
