@@ -27,9 +27,12 @@ const makeTitle = title
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width" />
-    <link rel="icon" type="image/png" href="/favicon.png" sizes="32x32"> <!-- Safari Fix -->
+    <link rel="icon" type="image/png" href="/favicon.png" sizes="256x256"> <!-- Safari Fix -->
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="generator" content={Astro.generator} />
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-title" content="Bahnfinder.app">
+
 
     <!-- <link rel="preload" as="image" href={src} alt="Hero" /> -->
     <!-- TODO: Fix title for iOS Share Sheet /> -->
