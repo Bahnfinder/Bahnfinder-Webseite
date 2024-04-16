@@ -3,7 +3,7 @@ draft: true
 title: "Bahnfinder Version 4"
 snippet: "Von dies und das und Ananas. Was neu ist in Version 3, ist schon krass."
 image: {
-    src: "/images/blog/update300.png",
+    src: "/images/blog/update300Poster.png",
     alt: "Bahnfinder Version 4"
 }
 publishDate: "04.03.2024"
