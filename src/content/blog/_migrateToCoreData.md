@@ -6,7 +6,7 @@ image: {
     src: "/images/blog/v3/update300Poster.png",
     alt: "Bahnfinder Version 3"
 }
-publishDate: "2024-01-16"
+publishDate: "2024-04-16"
 category: "meta"
 #author: "emilian"
 tags: [v3]
