@@ -9,25 +9,31 @@ const menuitems = [
   {
     title: "Start",
     path: "/",
+    icon: "/src/icons/navbarIcons/navbarIconHome.png",
   },
   {
     title: "Changelog",
     badge: true,
     path: "/changelog",
+    icon: "/src/icons/navbarIcons/navbarIconChangelog.png",
   },
   {
     title: "Der Entwickler",
     path: "/derEntwickler",
+    icon: "/src/icons/navbarIcons/navbarIconEntwickler.png",
   },
   {
-  title: "Mitwirkende",
-  path: "/mitwirkende",
+    title: "Mitwirkende",
+    path: "/mitwirkende",
+    icon: "/src/icons/navbarIcons/navbarIconMitwirkende.png",
   },
   {
     title: "Kontakt",
     path: "/kontakt",
+    icon: "/src/icons/navbarIcons/navbarIconContact.png",
   },
 ];
+
 ---
 <Container>
   <header class="flex flex-col lg:flex-row justify-between items-center my-5">
@@ -43,33 +49,34 @@ const menuitems = [
           <MenuIcon class="w-4 h-4 text-gray-800" />
         </div>
       </div>
-      <MenuItems class="hidden w-full lg:w-auto mt-2 lg:flex lg:mt-0">
+<MenuItems class="hidden w-full lg:w-auto mt-2 lg:flex lg:mt-0">
         <ul class="flex flex-col lg:flex-row lg:gap-3">
-          {
-            menuitems.map((item, index) => (
-              <>
-                {item.children && (
-                  <Dropdown
-                    title={item.title}
-                    children={item.children}
-                    lastItem={index === menuitems.length - 1}
-                  />
-                )}
+          {menuitems.map((item, index) => (
+            <>
+              {item.children && (
+                <Dropdown
+                  title={item.title}
+                  children={item.children}
+                  lastItem={index === menuitems.length - 1}
+                />
+              )}
+      
+              {!item.children && (
+                <li>
+                  <a
+                    href={item.path}
+                    class="flex lg:px-3 py-2 items-center text-gray-600 hover:text-gray-900">
+                    <img src={item.icon} alt={`${item.title} icon`} class="mr-2" style="width: 20px; height: 20px;" />
+                    <span>{item.title}</span>
+                  </a>
+                </li>
+              )}
+            </>
+          ))}
+        </ul>
+      </MenuItems>
 
-               {!item.children && (
-                                 <li>
-                                   <a
-                                     href={item.path}
-                                     class="flex lg:px-3 py-2 items-center text-gray-600 hover:text-gray-900">
-                                     <span> {item.title}</span>
-                                   </a>
-                                 </li>
-                               )}
-                             </>
-                           ))
-                         }
-                       </ul>
-                     </MenuItems>
+
                    </Astronav>
                  </header>
                </Container>
