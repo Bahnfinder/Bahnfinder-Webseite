@@ -6,24 +6,71 @@ import { Icon } from "astro-icon";
 <div class="mt-24">
   <h2 class="text-center text-slate-500">Mit den meisten Verkehrsgesellschaften</h2>
   <div class="flex gap-4 md:gap-4 items-center justify-center mt-6 flex-wrap">
-    <img src="images/logos/icon_DB.png" class="icon-size" alt="DB Logo" />
-    <img src="images/logos/icon_AVV.png" class="icon-size" alt="AVV Logo" />
-    <img src="images/logos/icon_KVV.png" class="icon-size" alt="KVV Logo" />
-    <img src="images/logos/icon_MVG.png" class="icon-size" alt="MVG Logo" />
-    <img src="images/logos/icon_MVV.png" class="icon-size" alt="MVV Logo" />
-    <img src="images/logos/icon_VBN.png" class="icon-size" alt="VBN Logo" />
-    <img src="images/logos/icon_VGN.png" class="icon-size" alt="VGN Logo" />
-    <img src="images/logos/icon_VMS.png" class="icon-size" alt="VMS Logo" />
-    <img src="images/logos/icon_VMV.png" class="icon-size" alt="VMV Logo" />
-    <img src="images/logos/icon_VRN.png" class="icon-size" alt="VRN Logo" />
-    <img src="images/logos/icon_VRR.png" class="icon-size" alt="VRR Logo" />
-    <img src="images/logos/icon_VVO.png" class="icon-size" alt="VVO Logo" />
+    <div class="icon-wrapper">
+      <img src="images/logos/icon_AVV.png" class="transport-icon" alt="AVV Logo" />
+    </div>
+    <div class="icon-wrapper">
+      <img src="images/logos/icon_BVG.png" class="transport-icon" alt="BVG Logo" />
+    </div>
+    <div class="icon-wrapper">
+      <img src="images/logos/icon_DB.png" class="transport-icon" alt="DB Logo" />
+    </div>
+    <div class="icon-wrapper">
+      <img src="images/logos/icon_HVV.png" class="transport-icon" alt="HVV Logo" />
+    </div>
+    <div class="icon-wrapper">
+      <img src="images/logos/icon_KVV.png" class="transport-icon" alt="KVV Logo" />
+    </div>
+    <div class="icon-wrapper">
+      <img src="images/logos/icon_MVG.png" class="transport-icon" alt="MVG Logo" />
+    </div>
+    <div class="icon-wrapper">
+      <img src="images/logos/icon_MVV.png" class="transport-icon" alt="MVV Logo" />
+    </div>
+    <div class="icon-wrapper">
+      <img src="images/logos/icon_Naldo.png" class="transport-icon" alt="Naldo Logo" />
+    </div>
+    <div class="icon-wrapper">
+      <img src="images/logos/icon_RailTeam.png" class="transport-icon" alt="RailTeam Logo" />
+    </div>
+    <div class="icon-wrapper">
+      <img src="images/logos/icon_RMV.png" class="transport-icon" alt="RMV Logo" />
+    </div>
+    <div class="icon-wrapper">
+      <img src="images/logos/icon_VBN.png" class="transport-icon" alt="VBN Logo" />
+    </div>
+    <div class="icon-wrapper">
+      <img src="images/logos/icon_VGN.png" class="transport-icon" alt="VGN Logo" />
+    </div>
+    <div class="icon-wrapper">
+      <img src="images/logos/icon_VMS.png" class="transport-icon" alt="VMS Logo" />
+    </div>
+    <div class="icon-wrapper">
+      <img src="images/logos/icon_VMV.png" class="transport-icon" alt="VMV Logo" />
+    </div>
+    <div class="icon-wrapper">
+      <img src="images/logos/icon_VRN.png" class="transport-icon" alt="VRN Logo" />
+    </div>
+    <div class="icon-wrapper">
+      <img src="images/logos/icon_VRR.png" class="transport-icon" alt="VRR Logo" />
+    </div>
+    <div class="icon-wrapper">
+      <img src="images/logos/icon_VVO.png" class="transport-icon" alt="VVO Logo" />
+    </div>
   </div>
 </div>
 
 <style>
-  .icon-size {
+  .transport-icon {
     height: 48px; /* Fixed height */
     width: 48px;  /* Fixed width */
+    object-fit: contain; /* Maintains the aspect ratio and fits within the box */
+  }
+  .icon-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center; /* Centers the label text under the icon */
+    margin: 10px; /* Adds space around each icon and label for better spacing */
   }
 </style>
