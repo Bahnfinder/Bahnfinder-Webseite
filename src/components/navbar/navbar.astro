@@ -32,24 +32,30 @@ const menuitems = [
     path: "/kontakt",
     icon: "/images/navbarIcons/navbarIconContact.png",
   },
+  {
+    title: "Spenden",
+    path: "https://donate.stripe.com/4gw16L2dz9YibKg288",
+    icon: "/images/navbarIcons/navbarIconSpenden.png",
+    external: true,
+  },
 ];
 
 ---
 <Container>
   <header class="flex flex-col lg:flex-row justify-between items-center my-5">
-<Astronav>
-  <div class="flex w-full lg:w-auto items-center justify-between">
-    <!-- Added Image next to Title -->
-    <a href="/" class="flex items-center text-lg">
-      <img src="/favicon.png" alt="Bahnfinder Logo" class="mr-2" style="width: 25px; height: 25px;" />
-      <span class="font-bold text-slate-800">Bahnfinder</span><span class="text-slate-500">.app</span>
-    </a>
-    
-    <div class="block lg:hidden">
-      <MenuIcon class="w-4 h-4 text-gray-800" />
-    </div>
-  </div>
-<MenuItems class="hidden w-full lg:w-auto mt-2 lg:flex lg:mt-0">
+    <Astronav>
+      <div class="flex w-full lg:w-auto items-center justify-between">
+        <!-- Added Image next to Title -->
+        <a href="/" class="flex items-center text-lg">
+          <img src="/favicon.png" alt="Bahnfinder Logo" class="mr-2" style="width: 25px; height: 25px;" />
+          <span class="font-bold text-slate-800">Bahnfinder</span><span class="text-slate-500">.app</span>
+        </a>
+        
+        <div class="block lg:hidden">
+          <MenuIcon class="w-4 h-4 text-gray-800" />
+        </div>
+      </div>
+      <MenuItems class="hidden w-full lg:w-auto mt-2 lg:flex lg:mt-0">
         <ul class="flex flex-col lg:flex-row lg:gap-3">
           {menuitems.map((item, index) => (
             <>
@@ -60,12 +66,14 @@ const menuitems = [
                   lastItem={index === menuitems.length - 1}
                 />
               )}
-      
               {!item.children && (
                 <li>
                   <a
                     href={item.path}
-                    class="flex lg:px-3 py-2 items-center text-gray-600 hover:text-gray-900">
+                    class="flex lg:px-3 py-2 items-center text-gray-600 hover:text-gray-900"
+                    target={item.external ? "_blank" : "_self"}
+                    rel={item.external ? "noopener noreferrer" : ""}
+                  >
                     <img src={item.icon} alt={`${item.title} icon`} class="mr-2" style="width: 20px; height: 20px;" />
                     <span>{item.title}</span>
                   </a>
@@ -74,7 +82,7 @@ const menuitems = [
             </>
           ))}
         </ul>
-         </MenuItems>
-                   </Astronav>
-                 </header>
-               </Container>
+      </MenuItems>
+    </Astronav>
+  </header>
+</Container>
