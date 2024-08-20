@@ -2,7 +2,11 @@
 import { Icon } from "astro-icon";
 ---
 
+
 <footer class="my-20">
+  <div class="mb-2 flex flex-col items-center justify-center mt-4">
+    <Icon name="tram" class="w-10"/>
+</div>
   <div class="flex items-center justify-center">
     <p class="text-sm text-slate-500">Mit </p>
     <Icon name="heart" class="w-4 mx-1"/>
@@ -11,9 +15,4 @@ import { Icon } from "astro-icon";
   <p class="text-center text-sm text-slate-500">
     © {new Date().getFullYear()} Bahnfinder
   </p>
-
-  <div class="mb-2 flex flex-col items-center justify-center mt-10">
-      <Icon name="tram" class="w-10"/>
-  </div>
-
 </footer>
