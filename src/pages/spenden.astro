@@ -19,16 +19,14 @@ import { Icon } from "astro-icon";
           Bahnfinder ist eine kostenlose iOS-App für den öffentlichen Nahverkehr (ÖPNV), die ich als Entwickler komplett eigenständig entwickelt habe. Die App bietet dir eine einfache und werbefreie Möglichkeit, deine ÖPNV-Reisen zu planen und stets auf dem neuesten Stand zu bleiben. Da ich die App alleine entwickle, bedeutet deine Unterstützung durch freiwillige Spenden für mich nicht nur eine finanzielle Hilfe, sondern auch eine Motivation, weiterhin meine Zeit und Energie in die Verbesserung und den Ausbau von Bahnfinder zu investieren. Jede Spende hilft, die App kontinuierlich zu optimieren und für alle Nutzer zugänglich zu machen. Vielen Dank für deine Unterstützung!
         </p>
       </div>
-      <div>
-<script async
-        src="https://js.stripe.com/v3/buy-button.js">
-      </script>
-      
-      <stripe-buy-button
-        buy-button-id="buy_btn_1PpXp1BKPSQN8urAJcqJlNNK"
-        publishable-key="pk_live_51PoMgrBKPSQN8urA7xBDhVGU5lJm9HclzlTTKFMx9yHeJtGn8Psk5uY3655iZWbVRDjOobfBgSHsyEIBM4U5f15100cXb2YnNW"
-      >
-      </stripe-buy-button>
+      <div class="flex justify-center">
+        <div>
+          <script async src="https://js.stripe.com/v3/buy-button.js"></script>
+          <stripe-buy-button
+            buy-button-id="buy_btn_1PpXp1BKPSQN8urAJcqJlNNK"
+            publishable-key="pk_live_51PoMgrBKPSQN8urA7xBDhVGU5lJm9HclzlTTKFMx9yHeJtGn8Psk5uY3655iZWbVRDjOobfBgSHsyEIBM4U5f15100cXb2YnNW"
+          ></stripe-buy-button>
+        </div>
       </div>
     </div>
   </Container>
