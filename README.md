@@ -1,6 +1,6 @@
 # Bahnfinder
 
-Website zu der Bahnfinder App für iOS.
+Die offizielle Webseite der Bahnfinder App!
 
 ![preview](/public/opengraphDetailed.png)
 
