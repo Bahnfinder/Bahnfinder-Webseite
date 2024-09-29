@@ -2331,8 +2331,8 @@ packages:
   vfile@5.3.7:
     resolution: {integrity: sha512-r7qlzkgErKjobAmyNIkkSpizsFPYiUPuJb5pNW1RB4JcYVZhs4lIbVqk8XPk033CV/1z8ss5pkax8SuhGpcG8g==}
 
-  vite@4.5.3:
-    resolution: {integrity: sha512-kQL23kMeX92v3ph7IauVkXkikdDRsYMGTVl5KY2E9OY4ONLvkHf04MDTbnfo6NKxZiDLWzVpP5oTa8hQD8U3dg==}
+  vite@4.5.5:
+    resolution: {integrity: sha512-ifW3Lb2sMdX+WU91s3R0FyQlAyLxOzCSCP37ujw0+r5POeHPwe6udWVIElKQq8gk3t7b8rkmvqC6IHBpCff4GQ==}
     engines: {node: ^14.18.0 || >=16.0.0}
     hasBin: true
     peerDependencies:
@@ -3178,8 +3178,8 @@ snapshots:
       typescript: 5.1.6
       unist-util-visit: 4.1.2
       vfile: 5.3.7
-      vite: 4.5.3(@types/node@17.0.45)
-      vitefu: 0.2.4(vite@4.5.3(@types/node@17.0.45))
+      vite: 4.5.5(@types/node@17.0.45)
+      vitefu: 0.2.4(vite@4.5.5(@types/node@17.0.45))
       which-pm: 2.0.0
       yargs-parser: 21.1.1
       zod: 3.22.4
@@ -5202,7 +5202,7 @@ snapshots:
       unist-util-stringify-position: 3.0.3
       vfile-message: 3.1.4
 
-  vite@4.5.3(@types/node@17.0.45):
+  vite@4.5.5(@types/node@17.0.45):
     dependencies:
       esbuild: 0.18.17
       postcss: 8.4.32
@@ -5211,9 +5211,9 @@ snapshots:
       '@types/node': 17.0.45
       fsevents: 2.3.2
 
-  vitefu@0.2.4(vite@4.5.3(@types/node@17.0.45)):
+  vitefu@0.2.4(vite@4.5.5(@types/node@17.0.45)):
     optionalDependencies:
-      vite: 4.5.3(@types/node@17.0.45)
+      vite: 4.5.5(@types/node@17.0.45)
 
   vscode-css-languageservice@6.2.6:
     dependencies:
