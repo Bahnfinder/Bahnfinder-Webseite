@@ -12,10 +12,20 @@ const publishedBlogEntries = await getCollection("blog", ({ data }) => {
 });
 
 // Sort content entries by publication date
-publishedBlogEntries.sort(function (a, b) {
-  return b.data.publishDate.valueOf() - a.data.publishDate.valueOf();
-});
+publishedBlogEntries.sort((a, b) => b.data.publishDate.valueOf() - a.data.publishDate.valueOf());
+
+// Get unique categories from published blog entries
+const categories = [...new Set(publishedBlogEntries.map(entry => entry.data.category))];
+
+// State to track selected category
+let selectedCategory = ""; // Default: shows all posts
+
+// Filter posts based on selected category
+const filteredBlogEntries = selectedCategory
+  ? publishedBlogEntries.filter(post => post.data.category === selectedCategory)
+  : publishedBlogEntries;
 ---
+
 
 <Layout title="Changelog">
   <Container>
@@ -25,48 +35,47 @@ publishedBlogEntries.sort(function (a, b) {
         Bahnfinder wird dank ständigen Updates immer besser. Hier findest du die neuesten Features, Verbesserungen und andere Neuigkeiten.
       </Fragment>
     </Sectionhead>
+    
     <main class="mt-16">
       <ul class="grid gap-16 max-w-4xl mx-auto">
-        {
-          publishedBlogEntries.map((blogPostEntry, index) => (
-            <li>
-              <a href={`/changelog/${blogPostEntry.slug}`}>
-                <div class="grid md:grid-cols-2 gap-5 md:gap-10 items-center">
-                  <Picture
-                    src={blogPostEntry.data.image.src}
-                    alt={blogPostEntry.data.image.alt}
-                    sizes="(max-width: 800px) 100vw, 800px"
-                    widths={[200, 400, 800]}
-                    aspectRatio="16:9"
-                    background="#ffffff"
-                    fit="cover"
-                    position="center"
-                    loading={index <= 2 ? "eager" : "lazy"}
-                    decoding={index <= 2 ? "sync" : "async"}
-                    class="w-full rounded-md"
-                  />
-                  <div>
-                    <span class="text-blue-400 uppercase tracking-wider text-sm font-medium">
-                      {blogPostEntry.data.category}
-                    </span>
+        {filteredBlogEntries.map((blogPostEntry, index) => (
+          <li>
+            <a href={`/changelog/${blogPostEntry.slug}`}>
+              <div class="grid md:grid-cols-2 gap-5 md:gap-10 items-center">
+                <Picture
+                  src={blogPostEntry.data.image.src}
+                  alt={blogPostEntry.data.image.alt}
+                  sizes="(max-width: 800px) 100vw, 800px"
+                  widths={[200, 400, 800]}
+                  aspectRatio="16:9"
+                  background="#ffffff"
+                  fit="cover"
+                  position="center"
+                  loading={index <= 2 ? "eager" : "lazy"}
+                  decoding={index <= 2 ? "sync" : "async"}
+                  class="w-full rounded-md"
+                />
+                <div>
+                  <span class="text-blue-400 uppercase tracking-wider text-sm font-medium">
+                    {blogPostEntry.data.category}
+                  </span>
 
-                    <h2 class="text-3xl font-semibold leading-snug tracking-tight mt-1 ">
-                      {blogPostEntry.data.title}
-                    </h2>
+                  <h2 class="text-3xl font-semibold leading-snug tracking-tight mt-1 ">
+                    {blogPostEntry.data.title}
+                  </h2>
 
-                    <div class="flex gap-2 mt-3">
-                      <time
-                        class="text-gray-400"
-                        datetime={blogPostEntry.data.publishDate.toISOString()}>
-                        {getFormattedDate(blogPostEntry.data.publishDate)}
-                      </time>
-                    </div>
+                  <div class="flex gap-2 mt-3">
+                    <time
+                      class="secondaryLabelColor"
+                      datetime={blogPostEntry.data.publishDate.toISOString()}>
+                      {getFormattedDate(blogPostEntry.data.publishDate)}
+                    </time>
                   </div>
                 </div>
-              </a>
-            </li>
-          ))
-        }
+              </div>
+            </a>
+          </li>
+        ))}
       </ul>
     </main>
   </Container>
