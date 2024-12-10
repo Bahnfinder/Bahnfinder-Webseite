@@ -43,7 +43,7 @@
 }
 
 body {
-  background-color: var(--background-color, black);
+  background-color: var(--background-color, #000000);
   color: var(--text-color);
   font-family: "SF-Pro", sans-serif;
 }
