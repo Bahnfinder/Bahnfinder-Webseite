@@ -1,33 +1,62 @@
 ---
 import { Picture } from "@astrojs/image/components";
-import heroImage from "assets/hero.png";
-import Link from "@components/ui/link.astro";
-import { Icon } from "astro-icon";
-import Text from "@components/texts.astro";
 ---
 
+<style>
+.bahnfinder-label {
+  min-height: 1.3em;
+  display: inline-block;
+  line-height: 1.2;
+  padding-bottom: 0.2rem;
+  font-weight: bold;
+}
+
+h1 {
+  overflow: visible;
+}
+
+.image-wrapper {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+}
+</style>
+
 <main class="grid lg:grid-cols-2 place-items-center pb-8 md:pt-12 md:pb-24">
+  <!-- Spotlight image section -->
   <div class="py-4 md:order-1 sm:order-1 md:block sm:block">
-    <Picture
-      src={heroImage}
-      alt="Bilder der Bahnfinder-App"
-      widths={[2048, 1024, 900, 600, 400]}
-      aspectRatio="4:3"
-      sizes="(max-width: 800px) (min-width: 300px) 100vw, 620px"
-      loading="eager"
-      format="png"
-    />
+    <div class="image-wrapper">
+      <Picture
+        src="/src/assets/spotlightIcon.png"
+        alt="Spotlight image description"
+        widths={[300, 600, 1024]}
+        sizes="(max-width: 600px) 300px, (max-width: 1024px) 600px, 1024px"
+        aspectRatio={1 / 1}
+        class="w-full h-full rounded-lg object-contain"
+      />
+    </div>
+  </div>
+
+  <!-- Hero content -->
+  <div class="py-8 md:order-2 sm:order-2 flex justify-center w-full">
   </div>
   <div>
-    <h1 class="flex-col text-5xl lg:text-6xl xl:text-7xl font-bold lg:tracking-tight xl:tracking-tighter">
-      Bahnfinder.
+    <h1 class="flex-col text-5xl lg:text-6xl xl:text-7xl lg:tracking-tight xl:tracking-tighter BFGradient">
+      <span id="bahnfinder-label" class="bahnfinder-label">
+        Bahnfinder
+      </span>
     </h1>
-    <p class="text-lg mt-4 text-slate-600 max-w-xl">
-      Mithilfe der Bahnfinder-App kommst Du täglich einfacher und schneller durch den ÖPNV Deiner Stadt. <wbr />
-      Lade Dir die App noch heute herunter und probier's gleich aus!
+    <p class="text-lg mt-4 secondaryLabelColor max-w-xl">
+      Mithilfe der Bahnfinder-App kommst Du täglich einfacher und schneller durch den ÖPNV Deiner Stadt.<wbr />
+      Lade Dir die App noch heute kostenlos runter und probier's gleich aus!
     </p>
     <div class="mt-6 flex flex-col sm:flex-row gap-3">
-<a href="https://apps.apple.com/de/app/bahnfinder/id6446902537?itsct=apps_box_badge&amp;itscg=30200" style="display: inline-block; overflow: hidden; border-radius: 13px; width: 250px; height: 83px;"><img src="https://tools.applemediaservices.com/api/badges/download-on-the-app-store/white/de-de?size=250x83&amp;releaseDate=1680307200" alt="Download on the App Store" style="border-radius: 13px; width: 250px; height: 83px;"></a>
+      <a href="https://apps.apple.com/de/app/bahnfinder/id6446902537?itscg=30200&itsct=apps_box_badge&mttnsubad=6446902537" style="display: inline-block;">
+        <img src="https://toolbox.marketingtools.apple.com/api/v2/badges/download-on-the-app-store/black/de-de?releaseDate=1680307200" alt="Im App Store laden" style="width: 245px; height: 82px; vertical-align: middle; object-fit: contain;" />
+      </a>
     </div>
   </div>
 </main>

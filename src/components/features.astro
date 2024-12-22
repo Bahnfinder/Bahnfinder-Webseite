@@ -1,5 +1,4 @@
 ---
-// @ts-ignore
 import { Icon } from "astro-icon";
 
 const features = [
@@ -8,59 +7,68 @@ const features = [
     description:
       "Mit nur wenigen Klicks kannst du die aktuellen Abfahrtszeiten deiner Haltestelle abrufen. Und keine Sorge, die App verrät dir auch, wenn der Bus mal wieder im Stau steckt oder die Bahn verspätet ist.",
     icon: "features/abfahrten",
+    image: "/src/assets/Features/1.png",
   },
   {
     title: "Verbindungen.",
     description:
       "Die benutzerfreundliche Oberfläche macht es zum Kinderspiel, die perfekte Verbindung in der App zu finden. Damit kommst du mühelos von A nach B – und das völlig stressfrei!",
     icon: "features/verbindungen",
+    image: "/src/assets/Features/2.png",
   },
   {
     title: "Fahrtverlauf.",
     description:
       "Bahnfahren leicht gemacht. Den Verlauf einer Linie (egal, ob Bus, Bahn, S-Bahn, U-Bahn, Tram, Fähre oder sogar Seilbahn) samt der Live Zeiten zu checken, wird mit Bahnfinder zum absoluten Vergnügen.",
     icon: "features/fahrtverlauf",
+    image: "/src/assets/Features/3.png",
   },
   {
     title: "Intuitive Suche.",
     description:
       "Wer suchet, der findet – und wer draufklickt, verbindet! Die intuitive Suche macht es Dir leicht, egal wonach du suchst. Einfach, schnell und effizient.",
     icon: "features/suche",
+    image: "/src/assets/Features/4.png",
   },
   {
     title: "Schick & Benutzerfreundlich.",
     description:
       "Nicht nur das iOS-native Design lässt dich nicht mehr aus dem Staunen, sondern auch die Benutzerfreundlichkeit der App. Sie ist so einfach und zugleich so powervoll wie nur möglich gestaltet.",
     icon: "features/benutzerfreundlich",
+    image: "/src/assets/Features/5.png",
   },
   {
     title: "Und vieles mehr.",
     description:
       'Mit Funktionen wie "Haltestellen vorlesen", "Automatisch folgen" oder "Erinnerungen" ist Bahnfinder jetzt noch vielseitiger!',
     icon: "features/more",
+    image: "/src/assets/Features/6.png",
   },
 ];
 ---
 
-<div class="mt-16 md:mt-0">
-  <h2 class="text-4xl lg:text-5xl font-bold lg:tracking-tight">
-    Alles, was Du auf Deinem Weg benötigst.
-  </h2>
-  <p class="text-lg mt-4 text-slate-600">
-    Bahnfinder begleitet Dich mit seinen smarten Funktionen auf Schritt und Tritt. Ob die optimale Verbindungssuche oder die Anzeige der nächsten Abfahrten an Deiner Haltestelle – mit Bahnfinder bist Du immer einen Schritt voraus.
-  </p>
-</div>
-
-<div class="grid sm:grid-cols-2 md:grid-cols-3 mt-16 gap-16">
+<div class="mt-16 space-y-16">
   {
-    features.map((item) => (
-      <div class="flex gap-4 items-start">
-        <div class="mt-1 bg-black rounded-full  p-2 w-8 h-8 shrink-0">
-          <Icon class="text-white colour-white fill-white" name={item.icon} />
+    features.map((item, index) => (
+      <div class={`flex flex-col md:flex-row items-center gap-8 ${index % 2 === 0 ? 'md:flex-row-reverse' : ''}`}>
+        <!-- Feature Image -->
+        <div class="w-full md:w-1/4 max-w-[200px]">
+          {item.image ? (
+            <img src={item.image} alt={item.title} class="w-full h-auto rounded-lg shadow-lg" />
+          ) : (
+            <div class="w-full h-[200px] bg-black rounded-lg shadow-lg"></div>
+          )}
         </div>
-        <div>
-          <h3 class="font-semibold text-lg">{item.title}</h3>{" "}
-          <p class="text-slate-500 mt-2 leading-relaxed">{item.description}</p>
+
+        <!-- Feature Text & Icon -->
+        <div class="w-full md:w-3/4 flex items-start gap-4">
+          <div class="mt-1 bg-black rounded-full p-2 w-12 h-12 shrink-0">
+            <Icon class="text-white colour-white fill-white" name={item.icon} />
+          </div>
+          <div>
+            <h3 class="font-semibold text-lg">{item.title}</h3>
+            <p class="secondaryLabelColor mt-2 leading-relaxed">{item.description}</p>
+          </div>
         </div>
       </div>
     ))

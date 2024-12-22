@@ -1,0 +1,92 @@
+/* global.css */
+
+:root {
+  --background-color: #000000;
+  --text-color: #ffffff;
+  --link-color: #0984FF;
+  --BFGradientStart: rgba(46, 195, 70, 1);
+  --BFGradientEnd: rgba(80, 180, 222, 1);
+  --labelColor: #ffffff;
+  --secondaryLabelColor: #ebebf599;
+  --tertiaryLabelColor: #ebebf54c;
+  --quaternaryLabelColor: #ebebf52e;
+  --secondaryBackground: #1c1c1e;
+  --systemGreen: #30D158;
+  --systemRed: #FF453A;
+}
+
+.labelColor {
+  color: var(--labelColor);
+}
+
+.secondaryLabelColor {
+  color: var(--secondaryLabelColor);
+}
+
+.tertiaryLabelColor {
+  color: var(--tertiaryLabelColor);
+}
+
+.quaternaryLabelColor {
+  color: var(--quaternaryLabelColor);
+}
+
+.BFGradient {
+  background-image: linear-gradient(
+    to bottom right,
+    var(--BFGradientStart),
+    var(--BFGradientEnd)
+  );
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+}
+
+body {
+  background-color: var(--background-color, #000000);
+  color: var(--text-color);
+  font-family: "SF-Pro", sans-serif;
+}
+
+a {
+  color: var(--link-color);
+}
+
+@font-face {
+  font-family: "SF-Pro";
+  src: url("/src/assets/fonts/SF-Pro.ttf") format("truetype");
+  font-weight: 100 900; /* This specifies the range of font weights */
+  font-style: normal;
+}
+
+.prose strong,
+.prose b {
+  background-image: linear-gradient(
+    to bottom right,
+    var(--BFGradientStart),
+    var(--BFGradientEnd)
+  );
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+}
+
+.prose p,
+.prose li,
+.prose span {
+  color: var(--text-color); /* Or your desired color */
+}
+
+.prose h4 {
+  background-image: linear-gradient(
+    to bottom right,
+    var(--BFGradientStart),
+    var(--BFGradientEnd)
+  );
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+}
+
+
+

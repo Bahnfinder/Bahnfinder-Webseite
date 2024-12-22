@@ -8,7 +8,8 @@ import sitemap from "@astrojs/sitemap";
 export default defineConfig({
   site: "https://bahnfinder.app",
   server: {
-    host: '0.0.0.0'
+    host: '0.0.0.0',
+    port: 212
   },
   integrations: [
     tailwind(),
