@@ -1,6 +1,5 @@
 ---
 import { Picture } from "@astrojs/image/components";
-import spotlightVideo from "assets/BahnfinderSpotlight.mp4"; // Import the video file
 ---
 
 <style>
@@ -24,24 +23,24 @@ h1 {
   width: 100%;
   height: 100%;
 }
-
-.video-loop {
-  width: 100%;
-  height: 100%;
-  object-fit: contain;
-  border-radius: 15%; /* Apply the same squircle effect if needed */
-}
 </style>
 
 <main class="grid lg:grid-cols-2 place-items-center pb-8 md:pt-12 md:pb-24">
-  <!-- Updated spotlight video section -->
+  <!-- Spotlight image section -->
   <div class="py-4 md:order-1 sm:order-1 md:block sm:block">
     <div class="image-wrapper">
-      <video src={spotlightVideo} class="video-loop" autoplay loop muted playsinline></video>
+      <Picture
+        src="/src/assets/spotlightIcon.png"
+        alt="Spotlight image description"
+        widths={[300, 600, 1024]}
+        sizes="(max-width: 600px) 300px, (max-width: 1024px) 600px, 1024px"
+        aspectRatio={1 / 1}
+        class="w-full h-full rounded-lg object-contain"
+      />
     </div>
   </div>
 
-  <!-- Current heroImage moved down -->
+  <!-- Hero content -->
   <div class="py-8 md:order-2 sm:order-2 flex justify-center w-full">
   </div>
   <div>
@@ -60,84 +59,4 @@ h1 {
       </a>
     </div>
   </div>
-
-  <!-- Typewriter Script -->
-<script client:load>
-    document.addEventListener("DOMContentLoaded", () => {
-      const bahnfinderNames = [
-        "Bahnfinder",
-        "Busfinder",
-        "U-Bahnfinder",
-        "Fährenfinder",
-        "Zugfinder",
-        "Tramfinder",
-        "Seilbahnfinder"
-      ];
-  
-      const totalIcons = bahnfinderNames.length;
-      const totalVideoDuration = 28.16; // in seconds
-      const durationPerIcon = totalVideoDuration / totalIcons; // ≈4.02 seconds
-      const transitionDuration = 0.3; // in seconds
-      const bufferDuration = 0.02; // in seconds
-      const visibleDuration = durationPerIcon - (2 * transitionDuration) - bufferDuration; // Time text is fully visible
-  
-      const bahnfinderLabel = document.getElementById("bahnfinder-label");
-  
-      if (!bahnfinderLabel) {
-        console.error("Could not find the bahnfinder-label.");
-        return;
-      }
-  
-      bahnfinderLabel.setAttribute('aria-live', 'polite');
-  
-      let currentNameIndex = 0;
-  
-      function typeWriter() {
-        const targetText = bahnfinderNames[currentNameIndex];
-        bahnfinderLabel.textContent = '';
-        let currentCharIndex = 0;
-  
-        // Typing speed calculated so typing finishes in transitionDuration
-        const typingSpeed = (transitionDuration * 1000) / targetText.length;
-  
-        function type() {
-          if (currentCharIndex < targetText.length) {
-            bahnfinderLabel.textContent += targetText.charAt(currentCharIndex);
-            currentCharIndex++;
-            setTimeout(type, typingSpeed);
-          } else {
-            // Text is fully typed, wait for visibleDuration before erasing
-            setTimeout(eraseWriter, visibleDuration * 1000);
-          }
-        }
-  
-        type();
-      }
-  
-      function eraseWriter() {
-        const targetText = bahnfinderNames[currentNameIndex];
-        let currentCharIndex = targetText.length;
-  
-        // Erasing speed calculated so erasing finishes in transitionDuration
-        const erasingSpeed = (transitionDuration * 1000) / targetText.length;
-  
-        function erase() {
-          if (currentCharIndex > 0) {
-            bahnfinderLabel.textContent = targetText.substring(0, currentCharIndex - 1);
-            currentCharIndex--;
-            setTimeout(erase, erasingSpeed);
-          } else {
-            // Move to the next word after bufferDuration
-            currentNameIndex = (currentNameIndex + 1) % bahnfinderNames.length;
-            setTimeout(typeWriter, bufferDuration * 1000);
-          }
-        }
-  
-        erase();
-      }
-  
-      // Start the typewriter effect
-      typeWriter();
-    });
-  </script>
 </main>
