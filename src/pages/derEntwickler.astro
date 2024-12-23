@@ -13,10 +13,12 @@ const publishedTeamMembers = await getCollection("entwickler", ({ data }) => {
 
 <Layout title="Der Entwickler">
   <Container>
-    <Sectionhead>
-      <Fragment slot="title">Der Entwickler</Fragment>
-      <Fragment slot="desc">Wer ist das, der Tag und Nacht (also wirklich viel zu viel) daran arbeitet, Bahnfinder immer und immer besser zu machen?</Fragment>
-    </Sectionhead>
+<Sectionhead>
+    <Fragment slot="title">
+      <span class="BFGradient">Der Entwickler</span>
+    </Fragment>
+    <Fragment slot="desc">Wer ist das, der Tag und Nacht (also wirklich viel zu viel) daran arbeitet, Bahnfinder immer und immer besser zu machen?</Fragment>
+  </Sectionhead>
     
 <div class="grid md:grid-cols-1 gap-10 mx-auto max-w-xl mt-12" style="display: flex; justify-content: center;">
       {publishedTeamMembers.map((teamMemberEntry) => (
