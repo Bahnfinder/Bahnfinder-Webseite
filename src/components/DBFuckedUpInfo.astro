@@ -1,0 +1,58 @@
+---
+const liveTickerData = [
+  {
+    message: `Soeben wurde eine Lösung für das Problem gefunden: Bahnfinder basiert auf einem Paket namens “TripKit”, welches die benötigten Daten bereitstellt. TripKit wiederum baut auf einem weiteren Paket auf, das gerade erfolgreich auf die neue API aktualisiert wurde. Bei weiteren Informationen wird diese Seite aktualisiert.`,
+    time: "12.1.2025 19:46 Uhr",
+  },
+  {
+    message: "Du kannst ausserdem das VRN Verkehrsnetz auswählen, welches zwar keine Live Daten anbietet, dafür aber in mehr Städten funktioniert!",
+    time: "12.1.2025 00:23 Uhr",
+  },
+];
+
+const buttonLink = "/DBFuckedUp"; // The updated sublink
+---
+
+<div class="mt-16 flex justify-center">
+  <div class="w-full max-w-md bg-red-900 text-white rounded-lg shadow-lg p-6 border border-red-700">
+    <!-- Image -->
+    <div class="flex justify-center">
+      <img 
+        src="/images/DBFuckedUp.png" 
+        alt="Server Issue" 
+        class="w-24 h-24 object-contain" 
+      />
+    </div>
+    
+    <!-- Title -->
+    <h2 class="text-center text-xl font-semibold mt-4">Wichtiger Hinweis</h2>
+    
+    <!-- Description -->
+    <p class="text-center text-sm mt-2 leading-relaxed">
+      Die Deutsche Bahn hat ihre API ohne Vorankündigung deaktiviert, wodurch das DB-Verkehrsnetz derzeit in keiner Drittanbieter-App verfügbar ist. Ich arbeite mit Hochdruck an einer Lösung. Bis dahin kannst du vorübergehend auf das AVV-Verkehrsnetz umsteigen, das auf DB-Daten basiert. Bitte beachte, dass im AVV-Verkehrsnetz die Linienfarben abweichen und Favoriten sowie der Verlauf separat sind. Auf Wunsch kannst du dich benachrichtigen lassen, sobald das DB-Verkehrsnetz wieder verfügbar ist.
+    </p>
+    
+    <!-- News Ticker (List with Timestamps) -->
+    <ul class="mt-4 bg-red-800 rounded-md py-4 px-6 space-y-4">
+      {liveTickerData.map((item, index) => (
+        <li key={index} class="flex flex-col text-sm">
+          <span class="flex gap-2 items-center">
+            <span class="w-2 h-2 bg-white rounded-full flex-shrink-0"></span>
+            <span class="flex-grow">{item.message}</span>
+          </span>
+          <span class="text-gray-300 text-xs mt-1 ml-4">{item.time}</span>
+        </li>
+      ))}
+    </ul>
+
+    <!-- Button -->
+    <div class="mt-6 flex justify-center">
+      <a
+        href={buttonLink}
+        class="bg-red-700 hover:bg-red-600 text-white font-semibold py-2 px-4 rounded-md shadow-md transition duration-200"
+      >
+        E-Mail Updates abonnieren
+      </a>
+    </div>
+  </div>
+</div>
