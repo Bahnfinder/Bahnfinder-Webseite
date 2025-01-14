@@ -1,6 +1,10 @@
 ---
 const liveTickerData = [
   {
+  message: `Das neue Update funktioniert! Ich habe soeben alle Funktionen in Bahnfinder wiederhergestellt und das Update im App Store hochgeladen. Sobald Apple die Prüfung abgeschlossen hat, wird Bahnfinder mit der Version 5.1.11 bzw. Version 6 Beta 13 wieder mit allen Funktionen zur Verfügung stehen. Dies sollte spätestens morgen früh der Fall sein.`,
+  time: "14.1.2025 23:33 Uhr",
+},
+  {
     message: `TripKit hat heute im Laufe des Tages mehrere Updates veröffentlicht, was bedeutet, dass alle Funktionen wieder wie gewohnt funktionieren sollten. Sobald ich zu Hause bin, werde ich die Änderungen umgehend in Bahnfinder übernehmen und prüfen, ob alles ordnungsgemäß funktioniert.`,
     time: "14.1.2025 17:48 Uhr",
   },
@@ -30,18 +34,18 @@ const buttonLink = "/DBFuckedUp"; // The updated sublink
 ---
 
 <div class="mt-16 flex justify-center">
-  <div class="w-full max-w-md bg-red-900 text-white rounded-lg shadow-lg p-6 border border-red-700">
+  <div class="w-full max-w-md bg-green-900 text-white rounded-lg shadow-lg p-6 border border-green-700">
     <!-- Image -->
     <div class="flex justify-center">
       <img 
-        src="/images/DBFuckedUp.png" 
+        src="/images/DBFuckedUpFixed.png" 
         alt="Server Issue" 
         class="w-24 h-24 object-contain" 
       />
     </div>
     
     <!-- Title -->
-    <h2 class="text-center text-xl font-semibold mt-4">Wichtiger Hinweis</h2>
+    <h2 class="text-center text-xl font-semibold mt-4">Problem behoben!</h2>
     
     <!-- Description -->
     <p class="text-center text-sm mt-2 leading-relaxed">
@@ -49,7 +53,7 @@ const buttonLink = "/DBFuckedUp"; // The updated sublink
     </p>
     
     <!-- News Ticker (List with Timestamps) -->
-    <ul class="mt-4 bg-red-800 rounded-md py-4 px-6 space-y-4">
+    <ul class="mt-4 bg-green-800 rounded-md py-4 px-6 space-y-4">
       {liveTickerData.map((item, index) => (
         <li key={index} class="flex flex-col text-sm">
           <span class="flex gap-2 items-center">
@@ -65,7 +69,7 @@ const buttonLink = "/DBFuckedUp"; // The updated sublink
     <div class="mt-6 flex justify-center">
       <a
         href={buttonLink}
-        class="bg-red-700 hover:bg-red-600 text-white font-semibold py-2 px-4 rounded-md shadow-md transition duration-200"
+        class="bg-green-700 hover:bg-green-600 text-white font-semibold py-2 px-4 rounded-md shadow-md transition duration-200"
       >
         E-Mail Updates abonnieren
       </a>
