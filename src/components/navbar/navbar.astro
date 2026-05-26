@@ -39,7 +39,18 @@ const menuitems = [
   },
 ];
 
-const currentPath = Astro.url.pathname;
+const currentPath = Astro.url.pathname.replace(/\/$/, "") || "/";
+
+function isActive(itemPath: string): boolean {
+  const normalizedItem = itemPath.replace(/\/$/, "") || "/";
+  if (normalizedItem === "/") {
+    return currentPath === "/";
+  }
+  return (
+    currentPath === normalizedItem ||
+    currentPath.startsWith(`${normalizedItem}/`)
+  );
+}
 ---
 
 <Container>
@@ -71,7 +82,7 @@ const currentPath = Astro.url.pathname;
                 <li>
                   <a
                     href={item.path}
-                    class={`flex lg:px-3 py-2 items-center ${currentPath === item.path ? 'labelColor' : 'secondaryLabelColor'} hover:labelColor`}
+                    class={`flex lg:px-3 py-2 items-center ${isActive(item.path) ? 'labelColor' : 'secondaryLabelColor'} hover:labelColor`}
                     target={item.external ? "_blank" : "_self"}
                     rel={item.external ? "noopener noreferrer" : ""}
                   >
