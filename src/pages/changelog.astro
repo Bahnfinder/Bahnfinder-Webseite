@@ -18,37 +18,19 @@ const fullChangelogUrl = "https://raw.githubusercontent.com/Bahnfinder/Changelog
       </Fragment>
     </Sectionhead>
 
-    <section class="max-w-4xl mx-auto mt-12">
-      <div class="full-changelog-callout rounded-md border border-white/10 bg-white/[0.03] px-5 py-5 md:px-6 md:py-6">
-        <div>
-          <div>
-            <p class="text-blue-400 uppercase tracking-wider text-sm font-medium">
-              Vollständiger Changelog
-            </p>
-            <h2 class="text-2xl font-semibold leading-snug tracking-tight mt-1">
-              Alle Versionen seit 1.0
-            </h2>
-            <p class="secondaryLabelColor mt-2">
-              Die ausführliche Liste wird direkt aus dem Bahnfinder-GitHub-Changelog geladen.
-            </p>
-          </div>
-        </div>
-
-        <div
-          id="full-changelog-panel"
-          class="full-changelog-panel mt-6"
-          data-url={fullChangelogUrl}>
-          <div
-            id="full-changelog-status"
-            class="secondaryLabelColor rounded-md border border-white/10 bg-black/20 px-4 py-3">
-            Changelog wird geladen ...
-          </div>
-          <article
-            id="full-changelog-content"
-            class="full-changelog-content prose prose-lg max-w-none hidden">
-          </article>
-        </div>
+    <section
+      id="full-changelog-panel"
+      class="full-changelog-panel max-w-4xl mx-auto mt-12"
+      data-url={fullChangelogUrl}>
+      <div
+        id="full-changelog-status"
+        class="secondaryLabelColor px-1 py-3">
+        Changelog wird geladen ...
       </div>
+      <article
+        id="full-changelog-content"
+        class="full-changelog-content prose prose-lg max-w-none hidden">
+      </article>
     </section>
   </Container>
 </Layout>
@@ -165,15 +147,8 @@ const fullChangelogUrl = "https://raw.githubusercontent.com/Bahnfinder/Changelog
 </script>
 
 <style>
-  .full-changelog-callout {
-    box-shadow: 0 18px 60px rgba(0, 0, 0, 0.2);
-  }
-
   .full-changelog-content {
-    border: 1px solid rgb(255 255 255 / 0.1);
-    background: rgb(0 0 0 / 0.2);
-    border-radius: 0.375rem;
-    padding: 1rem;
+    padding: 0;
   }
 
   .full-changelog-content :global(h2),
@@ -199,9 +174,7 @@ const fullChangelogUrl = "https://raw.githubusercontent.com/Bahnfinder/Changelog
     border-color: rgb(255 255 255 / 0.1);
   }
 
-  @media (max-width: 640px) {
-    .full-changelog-content {
-      padding: 0.875rem;
-    }
+  .full-changelog-content :global(ul) {
+    padding-left: 1.25rem;
   }
 </style>
