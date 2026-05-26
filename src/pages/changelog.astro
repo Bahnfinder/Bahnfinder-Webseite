@@ -24,6 +24,8 @@ let selectedCategory = ""; // Default: shows all posts
 const filteredBlogEntries = selectedCategory
   ? publishedBlogEntries.filter(post => post.data.category === selectedCategory)
   : publishedBlogEntries;
+
+const fullChangelogUrl = "https://raw.githubusercontent.com/Bahnfinder/Changelog/main/Bahnfinder%20Changelog.md";
 ---
 
 
@@ -37,6 +39,48 @@ const filteredBlogEntries = selectedCategory
         Bahnfinder wird dank ständigen Updates immer besser. Hier findest du die neuesten Features, Verbesserungen und andere Neuigkeiten.
       </Fragment>
     </Sectionhead>
+
+    <section class="max-w-4xl mx-auto mt-12">
+      <div class="full-changelog-callout rounded-md border border-white/10 bg-white/[0.03] px-5 py-5 md:px-6 md:py-6">
+        <div class="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
+          <div>
+            <p class="text-blue-400 uppercase tracking-wider text-sm font-medium">
+              Vollständiger Changelog
+            </p>
+            <h2 class="text-2xl font-semibold leading-snug tracking-tight mt-1">
+              Alle Versionen seit 1.0
+            </h2>
+            <p class="secondaryLabelColor mt-2">
+              Die ausführliche Liste wird direkt aus dem Bahnfinder-GitHub-Changelog geladen.
+            </p>
+          </div>
+
+          <button
+            id="full-changelog-toggle"
+            type="button"
+            class="full-changelog-button inline-flex items-center justify-center rounded-md px-5 py-3 font-semibold labelColor transition"
+            aria-controls="full-changelog-panel"
+            aria-expanded="false">
+            Vollständigen Changelog anzeigen
+          </button>
+        </div>
+
+        <div
+          id="full-changelog-panel"
+          class="full-changelog-panel mt-6 hidden"
+          data-url={fullChangelogUrl}>
+          <div
+            id="full-changelog-status"
+            class="secondaryLabelColor rounded-md border border-white/10 bg-black/20 px-4 py-3">
+            Changelog wird geladen ...
+          </div>
+          <article
+            id="full-changelog-content"
+            class="full-changelog-content prose prose-lg max-w-none hidden">
+          </article>
+        </div>
+      </div>
+    </section>
     
     <main class="mt-16">
       <ul class="grid gap-16 max-w-4xl mx-auto">
@@ -82,3 +126,193 @@ const filteredBlogEntries = selectedCategory
     </main>
   </Container>
 </Layout>
+
+<script>
+  const toggleButton = document.querySelector("#full-changelog-toggle");
+  const panel = document.querySelector("#full-changelog-panel");
+  const status = document.querySelector("#full-changelog-status");
+  const content = document.querySelector("#full-changelog-content");
+
+  let hasLoadedFullChangelog = false;
+
+  function escapeHtml(value) {
+    return value
+      .replaceAll("&", "&amp;")
+      .replaceAll("<", "&lt;")
+      .replaceAll(">", "&gt;")
+      .replaceAll('"', "&quot;")
+      .replaceAll("'", "&#039;");
+  }
+
+  function renderInlineMarkdown(value) {
+    const escaped = escapeHtml(value);
+
+    return escaped
+      .replace(/`([^`]+)`/g, "<code>$1</code>")
+      .replace(/\*\*([^*]+)\*\*/g, "<strong>$1</strong>")
+      .replace(/__([^_]+)__/g, "<strong>$1</strong>")
+      .replace(/\*([^*]+)\*/g, "<em>$1</em>")
+      .replace(/_([^_]+)_/g, "<em>$1</em>")
+      .replace(/\[([^\]]+)\]\((https?:\/\/[^)\s]+)\)/g, '<a href="$2" target="_blank" rel="noopener noreferrer">$1</a>');
+  }
+
+  function markdownToHtml(markdown) {
+    const lines = markdown.replace(/\r\n?/g, "\n").split("\n");
+    const html = [];
+    let listOpen = false;
+
+    function closeList() {
+      if (listOpen) {
+        html.push("</ul>");
+        listOpen = false;
+      }
+    }
+
+    for (const line of lines) {
+      const trimmed = line.trim();
+
+      if (!trimmed) {
+        closeList();
+        continue;
+      }
+
+      const heading = trimmed.match(/^(#{1,6})\s+(.+)$/);
+      if (heading) {
+        closeList();
+        const level = Math.min(heading[1].length + 1, 6);
+        html.push(`<h${level}>${renderInlineMarkdown(heading[2])}</h${level}>`);
+        continue;
+      }
+
+      if (/^[-*_]{3,}$/.test(trimmed)) {
+        closeList();
+        html.push("<hr>");
+        continue;
+      }
+
+      const listItem = trimmed.match(/^[-*]\s+(.+)$/);
+      if (listItem) {
+        if (!listOpen) {
+          html.push("<ul>");
+          listOpen = true;
+        }
+        html.push(`<li>${renderInlineMarkdown(listItem[1])}</li>`);
+        continue;
+      }
+
+      closeList();
+      html.push(`<p>${renderInlineMarkdown(trimmed)}</p>`);
+    }
+
+    closeList();
+
+    return html.join("");
+  }
+
+  async function loadFullChangelog() {
+    if (!panel || !status || !content || hasLoadedFullChangelog) {
+      return;
+    }
+
+    const url = panel.getAttribute("data-url");
+    if (!url) {
+      return;
+    }
+
+    try {
+      const response = await fetch(url, { cache: "no-store" });
+      if (!response.ok) {
+        throw new Error(`GitHub hat mit Status ${response.status} geantwortet.`);
+      }
+
+      const markdown = await response.text();
+      content.innerHTML = markdownToHtml(markdown);
+      status.classList.add("hidden");
+      content.classList.remove("hidden");
+      hasLoadedFullChangelog = true;
+    } catch (error) {
+      const message = error instanceof Error ? error.message : "Unbekannter Fehler";
+      status.textContent = `Der vollständige Changelog konnte nicht geladen werden. ${message}`;
+    }
+  }
+
+  toggleButton?.addEventListener("click", async () => {
+    if (!panel || !(toggleButton instanceof HTMLButtonElement)) {
+      return;
+    }
+
+    const isHidden = panel.classList.toggle("hidden");
+    toggleButton.setAttribute("aria-expanded", String(!isHidden));
+    toggleButton.textContent = isHidden
+      ? "Vollständigen Changelog anzeigen"
+      : "Vollständigen Changelog ausblenden";
+
+    if (!isHidden) {
+      await loadFullChangelog();
+    }
+  });
+</script>
+
+<style>
+  .full-changelog-callout {
+    box-shadow: 0 18px 60px rgba(0, 0, 0, 0.2);
+  }
+
+  .full-changelog-button {
+    background-image: linear-gradient(
+      to bottom right,
+      var(--BFGradientStart),
+      var(--BFGradientEnd)
+    );
+    color: #000000;
+    min-width: 17rem;
+  }
+
+  .full-changelog-button:hover {
+    filter: brightness(1.08);
+  }
+
+  .full-changelog-content {
+    max-height: min(70vh, 52rem);
+    overflow: auto;
+    border: 1px solid rgb(255 255 255 / 0.1);
+    background: rgb(0 0 0 / 0.2);
+    border-radius: 0.375rem;
+    padding: 1rem;
+  }
+
+  .full-changelog-content :global(h2),
+  .full-changelog-content :global(h3),
+  .full-changelog-content :global(h4) {
+    background-image: linear-gradient(
+      to bottom right,
+      var(--BFGradientStart),
+      var(--BFGradientEnd)
+    );
+    background-clip: text;
+    -webkit-background-clip: text;
+    color: transparent;
+  }
+
+  .full-changelog-content :global(a) {
+    color: #60a5fa;
+    text-decoration: underline;
+    text-underline-offset: 0.2em;
+  }
+
+  .full-changelog-content :global(hr) {
+    border-color: rgb(255 255 255 / 0.1);
+  }
+
+  @media (max-width: 640px) {
+    .full-changelog-button {
+      width: 100%;
+      min-width: 0;
+    }
+
+    .full-changelog-content {
+      max-height: 70vh;
+      padding: 0.875rem;
+    }
+  }
+</style>
