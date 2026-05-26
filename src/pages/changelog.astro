@@ -1,29 +1,7 @@
 ---
-import { getCollection } from "astro:content";
-import { Picture } from "@astrojs/image/components";
 import Layout from "@layouts/Layout.astro";
 import Container from "@components/container.astro";
 import Sectionhead from "@components/sectionhead.astro";
-import { getFormattedDate } from '../utils/all.js';
-
-// Filter blog entries with 'draft: false' & date before current date
-const publishedBlogEntries = await getCollection("blog", ({ data }) => {
-  return !data.draft && data.publishDate < new Date();
-});
-
-// Sort content entries by publication date
-publishedBlogEntries.sort((a, b) => b.data.publishDate.valueOf() - a.data.publishDate.valueOf());
-
-// Get unique categories from published blog entries
-const categories = [...new Set(publishedBlogEntries.map(entry => entry.data.category))];
-
-// State to track selected category
-let selectedCategory = ""; // Default: shows all posts
-
-// Filter posts based on selected category
-const filteredBlogEntries = selectedCategory
-  ? publishedBlogEntries.filter(post => post.data.category === selectedCategory)
-  : publishedBlogEntries;
 
 const fullChangelogUrl = "https://raw.githubusercontent.com/Bahnfinder/Changelog/main/Bahnfinder%20Changelog.md";
 ---
@@ -42,7 +20,7 @@ const fullChangelogUrl = "https://raw.githubusercontent.com/Bahnfinder/Changelog
 
     <section class="max-w-4xl mx-auto mt-12">
       <div class="full-changelog-callout rounded-md border border-white/10 bg-white/[0.03] px-5 py-5 md:px-6 md:py-6">
-        <div class="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
+        <div>
           <div>
             <p class="text-blue-400 uppercase tracking-wider text-sm font-medium">
               Vollständiger Changelog
@@ -54,20 +32,11 @@ const fullChangelogUrl = "https://raw.githubusercontent.com/Bahnfinder/Changelog
               Die ausführliche Liste wird direkt aus dem Bahnfinder-GitHub-Changelog geladen.
             </p>
           </div>
-
-          <button
-            id="full-changelog-toggle"
-            type="button"
-            class="full-changelog-button inline-flex items-center justify-center rounded-md px-5 py-3 font-semibold labelColor transition"
-            aria-controls="full-changelog-panel"
-            aria-expanded="false">
-            Vollständigen Changelog anzeigen
-          </button>
         </div>
 
         <div
           id="full-changelog-panel"
-          class="full-changelog-panel mt-6 hidden"
+          class="full-changelog-panel mt-6"
           data-url={fullChangelogUrl}>
           <div
             id="full-changelog-status"
@@ -81,54 +50,10 @@ const fullChangelogUrl = "https://raw.githubusercontent.com/Bahnfinder/Changelog
         </div>
       </div>
     </section>
-    
-    <main class="mt-16">
-      <ul class="grid gap-16 max-w-4xl mx-auto">
-        {filteredBlogEntries.map((blogPostEntry, index) => (
-          <li>
-            <a href={`/changelog/${blogPostEntry.slug}`}>
-              <div class="grid md:grid-cols-2 gap-5 md:gap-10 items-center">
-                <Picture
-                  src={blogPostEntry.data.image.src}
-                  alt={blogPostEntry.data.image.alt}
-                  sizes="(max-width: 800px) 100vw, 800px"
-                  widths={[1200]}
-                  aspectRatio="16:9"
-                  background="#ffffff"
-                  fit="cover"
-                  position="center"
-                  loading={index <= 2 ? "eager" : "lazy"}
-                  decoding={index <= 2 ? "sync" : "async"}
-                  class="w-full rounded-md"
-                />
-                <div>
-                  <span class="text-blue-400 uppercase tracking-wider text-sm font-medium">
-                    {blogPostEntry.data.category}
-                  </span>
-
-                  <h2 class="text-3xl font-semibold leading-snug tracking-tight mt-1 ">
-                    {blogPostEntry.data.title}
-                  </h2>
-
-                  <div class="flex gap-2 mt-3">
-                    <time
-                      class="secondaryLabelColor"
-                      datetime={blogPostEntry.data.publishDate.toISOString()}>
-                      {getFormattedDate(blogPostEntry.data.publishDate)}
-                    </time>
-                  </div>
-                </div>
-              </div>
-            </a>
-          </li>
-        ))}
-      </ul>
-    </main>
   </Container>
 </Layout>
 
 <script>
-  const toggleButton = document.querySelector("#full-changelog-toggle");
   const panel = document.querySelector("#full-changelog-panel");
   const status = document.querySelector("#full-changelog-status");
   const content = document.querySelector("#full-changelog-content");
@@ -236,21 +161,7 @@ const fullChangelogUrl = "https://raw.githubusercontent.com/Bahnfinder/Changelog
     }
   }
 
-  toggleButton?.addEventListener("click", async () => {
-    if (!panel || !(toggleButton instanceof HTMLButtonElement)) {
-      return;
-    }
-
-    const isHidden = panel.classList.toggle("hidden");
-    toggleButton.setAttribute("aria-expanded", String(!isHidden));
-    toggleButton.textContent = isHidden
-      ? "Vollständigen Changelog anzeigen"
-      : "Vollständigen Changelog ausblenden";
-
-    if (!isHidden) {
-      await loadFullChangelog();
-    }
-  });
+  loadFullChangelog();
 </script>
 
 <style>
@@ -258,23 +169,7 @@ const fullChangelogUrl = "https://raw.githubusercontent.com/Bahnfinder/Changelog
     box-shadow: 0 18px 60px rgba(0, 0, 0, 0.2);
   }
 
-  .full-changelog-button {
-    background-image: linear-gradient(
-      to bottom right,
-      var(--BFGradientStart),
-      var(--BFGradientEnd)
-    );
-    color: #000000;
-    min-width: 17rem;
-  }
-
-  .full-changelog-button:hover {
-    filter: brightness(1.08);
-  }
-
   .full-changelog-content {
-    max-height: min(70vh, 52rem);
-    overflow: auto;
     border: 1px solid rgb(255 255 255 / 0.1);
     background: rgb(0 0 0 / 0.2);
     border-radius: 0.375rem;
@@ -305,13 +200,7 @@ const fullChangelogUrl = "https://raw.githubusercontent.com/Bahnfinder/Changelog
   }
 
   @media (max-width: 640px) {
-    .full-changelog-button {
-      width: 100%;
-      min-width: 0;
-    }
-
     .full-changelog-content {
-      max-height: 70vh;
       padding: 0.875rem;
     }
   }
