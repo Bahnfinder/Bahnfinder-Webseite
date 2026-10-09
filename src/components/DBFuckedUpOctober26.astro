@@ -1,0 +1,88 @@
+---
+const liveTickerData = [
+  {
+    message: `Warten auf App Store Upload`,
+    time: "9.10.2026 04:23 Uhr",
+  },
+  {
+    message: `Fix in Bahnfinder implementiert`,
+    subtitle: `Die Änderung ist in Bahnfinder eingebunden. Im Simulator antworten alle sieben DB Endpunkte mit HTTP 200.`,
+    time: "9.10.2026 04:11 Uhr",
+  },
+  {
+    message: `Fix gefunden`,
+    subtitle: `Eine eigene Verbindung mit maximal TLS 1.2 umgeht die Sperre bei den betroffenen Anfragen.`,
+    time: "9.10.2026 03:27 Uhr",
+  },
+  {
+    message: `Problem identifiziert`,
+    subtitle: `Der Akamai Bot Manager blockierte bestimmte Anfragen aus Apples URLSession bei TLS 1.3 mit HTTP 452 (OPS_BLOCKED).`,
+    time: "9.10.2026 02:13 Uhr",
+  },
+  {
+    message: `Ich bin über die Störung informiert und arbeite an einer Lösung.`,
+    time: "8.10.2026 18:53 Uhr",
+  },
+];
+
+---
+
+<div class="mt-16 flex justify-center">
+  <div class="w-full max-w-md bg-red-900 text-white rounded-lg shadow-lg p-6 border border-red-700">
+    <!-- Image -->
+    <div class="flex justify-center">
+      <img 
+        src="/images/DBFuckedUp.png"
+        alt="Server Issue" 
+        class="w-24 h-24 object-contain" 
+      />
+    </div>
+    
+    <!-- Title -->
+    <h2 class="text-center text-xl font-semibold mt-4">DB Verkehrsnetz vorübergehend gestört</h2>
+    
+    <!-- Description -->
+    <p class="text-center text-sm mt-2 leading-relaxed">
+      Ein Schutzmechanismus der Deutschen Bahn blockiert derzeit manche Anfragen. Deshalb funktionieren Abfahrten, Ankünfte und die Verbindungssuche nicht zuverlässig. Die Suche nach Stationen in der Nähe kann weiterhin funktionieren. Ich arbeite an einer Lösung.
+    </p>
+    
+    <!-- News Ticker (List with Timestamps) -->
+    <ul class="mt-4 bg-red-800 rounded-md py-4 px-6 space-y-4">
+      {liveTickerData.map((item, index) => (
+        <li key={index} class="flex flex-col text-sm">
+          <span class="flex gap-2 items-center">
+            <span class="w-2 h-2 bg-white rounded-full flex-shrink-0"></span>
+            <span class="flex-grow">
+              {item.message}
+              {item.subtitle && (
+                <span class="mt-1 block secondaryLabelColor">{item.subtitle}</span>
+              )}
+            </span>
+          </span>
+          <span class="text-gray-300 text-xs mt-1 ml-4">{item.time}</span>
+        </li>
+      ))}
+    </ul>
+
+    <details class="mt-4 rounded-md bg-red-800/60 px-4 py-3">
+      <summary class="cursor-pointer text-sm font-semibold secondaryLabelColor">
+        Technische Details
+      </summary>
+      <p class="mt-3 text-sm leading-relaxed secondaryLabelColor">
+        Die DB Schnittstelle antwortet auf bestimmte Anfragen mit HTTP 452 und
+        dem Code <code class="rounded bg-black/30 px-1.5 py-0.5">OPS_BLOCKED</code>.
+        Davor arbeitet der Akamai Bot Manager. Er blockiert bestimmte Anfragen,
+        wenn Apples URLSession und Network.framework TLS 1.3 verwenden. Betroffen
+        sind Abfahrten, Ankünfte und Fahrpläne. Die Stationssuche ist davon nicht
+        betroffen.
+      </p>
+      <p class="mt-3 text-sm leading-relaxed secondaryLabelColor">
+        Als Workaround verwendet Bahnfinder für die DB eine eigene Verbindung,
+        die höchstens TLS 1.2 nutzt. Andere Anbieter bleiben bei TLS 1.3. Im
+        Simulator wurden alle sieben DB Endpunkte mit HTTP 200 getestet. Das
+        Update wartet noch auf den Upload in den App Store.
+      </p>
+    </details>
+
+  </div>
+</div>
