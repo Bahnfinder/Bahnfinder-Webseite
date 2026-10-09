@@ -1,7 +1,7 @@
 ---
 const liveTickerData = [
   {
-    message: `Die DB-Schnittstelle antwortet auf bestimmte Anfragen mit HTTP 452 (OPS_BLOCKED). Hinweise deuten darauf hin, dass der Bot-Schutz diese Anfragen blockiert. Wir testen eine technische Anpassung.`,
+    message: `Ich bin über die Störung informiert und arbeite an einer Lösung.`,
     time: "9.10.2026",
   },
 ];
@@ -25,7 +25,7 @@ const buttonLink = "/DBFuckedUp";
     
     <!-- Description -->
     <p class="text-center text-sm mt-2 leading-relaxed">
-      Bei der DB-Schnittstelle gibt es derzeit Probleme. Abfahrten, Ankünfte und die Verbindungssuche im DB-Verkehrsnetz funktionieren nicht zuverlässig. Die Suche nach Stationen in der Nähe kann weiterhin funktionieren. Wir arbeiten an einer Lösung.
+      Bei der DB-Schnittstelle gibt es derzeit Probleme. Abfahrten, Ankünfte und die Verbindungssuche im DB-Verkehrsnetz funktionieren nicht zuverlässig. Die Suche nach Stationen in der Nähe kann weiterhin funktionieren. Ich arbeite an einer Lösung.
     </p>
     
     <!-- News Ticker (List with Timestamps) -->
@@ -40,6 +40,18 @@ const buttonLink = "/DBFuckedUp";
         </li>
       ))}
     </ul>
+
+    <details class="mt-4 rounded-md bg-red-800/60 px-4 py-3">
+      <summary class="cursor-pointer text-sm font-semibold text-gray-100">
+        Technische Details
+      </summary>
+      <p class="mt-3 text-sm leading-relaxed text-gray-200">
+        Die DB-Schnittstelle antwortet auf bestimmte Anfragen mit HTTP 452
+        (<code class="rounded bg-black/30 px-1.5 py-0.5">OPS_BLOCKED</code>).
+        Hinweise deuten darauf hin, dass der Bot-Schutz diese Anfragen blockiert.
+        Ich teste eine technische Anpassung.
+      </p>
+    </details>
 
     <!-- Button -->
     <div class="mt-6 flex justify-center">
