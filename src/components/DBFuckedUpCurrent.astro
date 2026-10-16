@@ -1,0 +1,44 @@
+---
+const liveTickerData = [
+  {
+    message: `Ich bin über die Störung informiert und arbeite an einer Lösung.`,
+    subtitle: `Ein Schutzmechanismus der Deutschen Bahn blockierte manche Anfragen. Dadurch funktionierten Abfahrten, Ankünfte und die Verbindungssuche nicht zuverlässig. Die Suche nach Stationen in der Nähe konnte weiterhin funktionieren.`,
+    time: "16.10.2026 04:28 Uhr",
+  },
+];
+---
+
+<div class="mt-16 flex justify-center">
+  <div class="w-full max-w-md bg-red-900 text-white rounded-lg shadow-lg p-6 border border-red-700">
+    <div class="flex justify-center">
+      <img
+        src="/images/DBFuckedUp.png"
+        alt="Störung im DB Verkehrsnetz"
+        class="w-24 h-24 object-contain"
+      />
+    </div>
+
+    <h2 class="text-center text-xl font-semibold mt-4">Aktuelle Störung</h2>
+
+    <p class="text-center text-sm mt-2 leading-relaxed">
+      Das DB Verkehrsnetz ist derzeit teilweise beeinträchtigt.
+    </p>
+
+    <ul class="mt-4 bg-red-800 rounded-md py-4 px-6 space-y-4">
+      {liveTickerData.map((item, index) => (
+        <li key={index} class="flex flex-col text-sm">
+          <span class="flex gap-2 items-center">
+            <span class="w-2 h-2 bg-white rounded-full flex-shrink-0"></span>
+            <span class="flex-grow">
+              {item.message}
+              {item.subtitle && (
+                <span class="mt-1 block secondaryLabelColor">{item.subtitle}</span>
+              )}
+            </span>
+          </span>
+          <span class="text-gray-300 text-xs mt-1 ml-4">{item.time}</span>
+        </li>
+      ))}
+    </ul>
+  </div>
+</div>
