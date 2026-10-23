@@ -3,7 +3,7 @@ const NOTICES_URL = "https://api.victorlobe.me/Bahnfinder/notices.json";
 
 let noticesPromise;
 
-function fetchNotices() {
+export function fetchNotices() {
   return fetch(NOTICES_URL, { cache: "no-store" }).then((response) => {
     if (!response.ok) {
       throw new Error(`notices.json konnte nicht geladen werden (HTTP ${response.status})`);

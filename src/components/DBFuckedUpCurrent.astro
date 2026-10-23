@@ -1,10 +1,37 @@
 ---
 import DBFuckedUpCard from "@components/DBFuckedUpCard.astro";
+import { currentIncidentAlt } from "@utils/incidentCard.js";
 import { getCurrentIncident } from "@utils/notices.js";
 
+// Stand vom Build, wird im Browser durch die Live-Daten ersetzt
 const incident = await getCurrentIncident();
 ---
 
-{incident && (
-  <DBFuckedUpCard incident={incident} alt="Störung im DB Verkehrsnetz behoben" />
-)}
+<div id="db-incident-current">
+  {incident && (
+    <DBFuckedUpCard incident={incident} alt={currentIncidentAlt(incident)} />
+  )}
+</div>
+
+<script>
+  import { currentIncidentAlt, renderIncidentCard } from "@utils/incidentCard.js";
+  import { fetchNotices } from "@utils/notices.js";
+
+  const container = document.getElementById("db-incident-current");
+
+  fetchNotices()
+    .then((notices) => {
+      const incident = notices.incidents.find((incident) => incident.id === notices.current);
+      const liveCard = document.createElement("div");
+      liveCard.innerHTML = incident ? renderIncidentCard(incident, currentIncidentAlt(incident)) : "";
+      // Nur ersetzen, wenn sich die Störung seit dem Build geändert hat
+      const normalize = (html) => html.replace(/\s+/g, "");
+      if (container && normalize(container.innerHTML) !== normalize(liveCard.innerHTML)) {
+        container.replaceChildren(...liveCard.childNodes);
+      }
+    })
+    .catch((error) => {
+      // Stand vom Build bleibt sichtbar
+      console.warn("Live-Störungen konnten nicht geladen werden:", error);
+    });
+</script>
