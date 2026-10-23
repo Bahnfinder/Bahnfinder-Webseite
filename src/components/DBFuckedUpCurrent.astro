@@ -1,64 +1,10 @@
 ---
-const liveTickerData = [
-  {
-    message: `Update freigegeben`,
-    subtitle: `Das Update wurde im App Store freigegeben und steht jetzt bereit. Lade die neueste Version aus dem App Store oder über TestFlight herunter, damit das DB Verkehrsnetz wieder funktioniert.`,
-    time: "17.10.2026 03:01 Uhr",
-  },
-  {
-    message: `App ist jetzt in Prüfung`,
-    subtitle: `Das Update sollte bald online sein.`,
-    time: "16.10.2026 23:24 Uhr",
-  },
-  {
-    message: `Bahnfinder Update an Apple gesendet`,
-    subtitle: `Das Update wurde jetzt an Apple gesendet und wartet auf Freigabe.`,
-    time: "16.10.2026 05:03 Uhr",
-  },
-  {
-    message: `Fix gefunden`,
-    subtitle: `Ein Fix wurde gefunden.`,
-    time: "16.10.2026 04:44 Uhr",
-  },
-  {
-    message: `Ich bin über die Störung informiert und arbeite an einer Lösung.`,
-    subtitle: `Ein Schutzmechanismus der Deutschen Bahn blockierte manche Anfragen. Dadurch funktionierten Abfahrten, Ankünfte und die Verbindungssuche nicht zuverlässig. Die Suche nach Stationen in der Nähe konnte weiterhin funktionieren.`,
-    time: "16.10.2026 04:28 Uhr",
-  },
-];
+import DBFuckedUpCard from "@components/DBFuckedUpCard.astro";
+import { getCurrentIncident } from "@utils/notices.js";
+
+const incident = await getCurrentIncident();
 ---
 
-<div class="mt-16 flex justify-center">
-  <div class="w-full max-w-md bg-green-900 text-white rounded-lg shadow-lg p-6 border border-green-700">
-    <div class="flex justify-center">
-      <img
-        src="/images/DBFuckedUpFixed.png"
-        alt="Störung im DB Verkehrsnetz behoben"
-        class="w-24 h-24 object-contain"
-      />
-    </div>
-
-    <h2 class="text-center text-xl font-semibold mt-4">Problem behoben!</h2>
-
-    <p class="text-center text-sm mt-2 leading-relaxed">
-      Das DB Verkehrsnetz funktioniert wieder. Das Update wurde am 17.10.2026 um 03:01 Uhr im App Store freigegeben. Aktualisiere Bahnfinder auf die neueste Version, um den Fix zu nutzen.
-    </p>
-
-    <ul class="mt-4 bg-green-800 rounded-md py-4 px-6 space-y-4">
-      {liveTickerData.map((item, index) => (
-        <li key={index} class="flex flex-col text-sm">
-          <span class="flex gap-2 items-center">
-            <span class="w-2 h-2 bg-white rounded-full flex-shrink-0"></span>
-            <span class="flex-grow">
-              {item.message}
-              {item.subtitle && (
-                <span class="mt-1 block secondaryLabelColor">{item.subtitle}</span>
-              )}
-            </span>
-          </span>
-          <span class="text-gray-300 text-xs mt-1 ml-4">{item.time}</span>
-        </li>
-      ))}
-    </ul>
-  </div>
-</div>
+{incident && (
+  <DBFuckedUpCard incident={incident} alt="Störung im DB Verkehrsnetz behoben" />
+)}
